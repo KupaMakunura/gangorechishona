@@ -2,3 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: Wendy LP;
+  src: url("./assets/Wendy-LP-Bold.ttf");
+}
+@font-face {
+  font-family: Montserrat;
+  src: url("./assets/Montserrat-Regular.ttf");
+}
+
+.logo-font {
+  font-family: Wendy LP;
+}
+
+.main-font {
+  font-family: Montserrat;
+  @apply text-sm;
+}

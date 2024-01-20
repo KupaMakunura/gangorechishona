@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  first_name String
+  last_name  String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  Transaction Transaction[]
+  Enrollment  Enrollment[]
+}
+
+model Course {
+  id          String        @id @default(uuid())
+  name        String
+  description String
+  price       Int
+  picture     String // Assuming you store the file path or URL as a string
+  duration    String
+  currency    String        @default("USD")
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+  Transaction Transaction[]
+  Enrollment  Enrollment[]
+}
+
+model Transaction {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId   String
+  amount     Decimal
+  method     String
+  currency   String   @default("USD")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Enrollment {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId   String
+  date       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model NewsLetter {
+  id         String   @id @default(uuid())
+  title      String
+  news       String
+  email      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
