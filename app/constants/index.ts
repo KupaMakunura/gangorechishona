@@ -71,3 +71,5 @@ export const PaymentMethods: PMethods[] = [
     active: false,
   },
 ];
+
+export const lessonImages = ["./lesson-1.jpg","./lesson-2.jpg","./lesson-3.jpg"];

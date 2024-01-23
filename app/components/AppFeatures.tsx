@@ -1,6 +1,6 @@
 // Features.js
-import React from 'react';
-
+import { FaChalkboardTeacher, FaChartLine } from 'react-icons/fa'
+import { IoMdSchool } from 'react-icons/io'
 
 interface Props {
     title: string;
@@ -8,8 +8,13 @@ interface Props {
 }
 const Feature = ({ title, description }: Props) => {
     return (
-        <div className="p-6 bg-white rounded-md shadow-md">
-            <h2 className="text-2xl  text-gray-800 mb-2">{title}</h2>
+        <div className="p-8 bg-white rounded-md shadow flex flex-col items-center">
+
+            {title === 'Interactive Lessons' && <FaChalkboardTeacher size={60} color="#5ac776" />}
+            {title === 'Personalized Learning' && <IoMdSchool size={60} color="#5ac776" />}
+            {title === 'Track Your Progress' && <FaChartLine size={60} color="#5ac776"/>}
+
+            <h2 className="text-xl text-gray-800 my-4">{title}</h2>
             <p className="text-gray-600">{description}</p>
         </div>
     );
@@ -24,7 +29,7 @@ const AppFeatures = () => {
 
     return (
         <section className="mt-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="max-md:grid max-md:grid-cols-1 md:flex justify-center md:space-x-5">
                 {features.map((feature, index) => (
                     <Feature key={index} title={feature.title} description={feature.description} />
                 ))}
