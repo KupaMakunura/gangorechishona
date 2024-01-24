@@ -65,3 +65,10 @@ model NewsLetter {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model NewsLetterSubscriber {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

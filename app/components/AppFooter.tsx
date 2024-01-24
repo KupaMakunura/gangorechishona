@@ -43,7 +43,7 @@ const AppFooter = () => {
 
                     <div className='cursor-pointer'>
                         <span className='font-semibold'>
-                            Call: <span className='font-thin'>+263 71 471 0875</span>
+                            Call: <span className='font-thin'>+263 71 252 4914</span>
                         </span>
 
 
