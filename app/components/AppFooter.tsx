@@ -1,8 +1,10 @@
+"use client";
 import { useFormik } from 'formik'
 import Link from 'next/link'
 import { Button, Footer, Input } from 'react-daisyui'
 import { FaChevronRight } from 'react-icons/fa6'
 import { Links, Services } from '../constants'
+import axios from 'axios';
 
 const AppFooter = () => {
 
@@ -14,8 +16,9 @@ const AppFooter = () => {
         email: ""
     }
 
-    const onSubmit = (values: Subscribe) => {
-
+    const onSubmit = async (values: Subscribe) => {
+        const response = await axios.post('/api/users/subscribe/', values)
+        console.log(response)
     }
 
     const { handleChange, handleSubmit, errors: FormikError } = useFormik<Subscribe>({
@@ -87,7 +90,7 @@ const AppFooter = () => {
                         <div className="flex-1 space-y-1">
                             <Input
                                 type="email"
-                                className="form-control text-sm w-full focus:outline-none  max-md:w-full"
+                                className="input input-bordered input-md form-control text-sm w-full focus:outline-none focus:border-primary  max-md:w-full"
                                 onChange={handleChange("email")}
                                 placeholder="Email" />
                             <span className='text-xs ml-1 text-red-600 flex justify-start'>{FormikError.email}</span>

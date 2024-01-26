@@ -1,3 +1,4 @@
+"use client";
 import { lessonImages } from "../constants"
 import { Card } from "react-daisyui";
 import classNames from "classnames";

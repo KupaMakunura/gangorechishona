@@ -1,4 +1,4 @@
-// Features.js
+"use lient";
 import { FaChalkboardTeacher, FaChartLine } from 'react-icons/fa'
 import { IoMdSchool } from 'react-icons/io'
 
@@ -12,7 +12,7 @@ const Feature = ({ title, description }: Props) => {
 
             {title === 'Interactive Lessons' && <FaChalkboardTeacher size={60} color="#5ac776" />}
             {title === 'Personalized Learning' && <IoMdSchool size={60} color="#5ac776" />}
-            {title === 'Track Your Progress' && <FaChartLine size={60} color="#5ac776"/>}
+            {title === 'Track Your Progress' && <FaChartLine size={60} color="#5ac776" />}
 
             <h2 className="text-xl text-gray-800 my-4">{title}</h2>
             <p className="text-gray-600">{description}</p>
@@ -29,7 +29,9 @@ const AppFeatures = () => {
 
     return (
         <section className="mt-12">
-            <div className="max-md:grid max-md:grid-cols-1 md:flex justify-center md:space-x-5">
+            <div
+                className="max-md:grid max-md:grid-cols-1 md:flex justify-center md:space-x-5 max-md:space-y-3"
+            >
                 {features.map((feature, index) => (
                     <Feature key={index} title={feature.title} description={feature.description} />
                 ))}

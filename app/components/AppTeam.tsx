@@ -1,3 +1,4 @@
+"use client";
 import { Card } from "react-daisyui"
 import classNames from "classnames"
 import { TeamList } from "../constants"

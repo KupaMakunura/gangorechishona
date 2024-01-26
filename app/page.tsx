@@ -1,4 +1,4 @@
-"use client";
+
 import AppFeatures from "./components/AppFeatures";
 import AppFooter from "./components/AppFooter";
 import AppHeader from "./components/AppHeader";
