@@ -1,29 +1,50 @@
 "use client";
-import { useFormik } from 'formik'
-import Link from 'next/link'
-import { Button, Footer, Input } from 'react-daisyui'
-import { FaChevronRight } from 'react-icons/fa6'
-import { Links, Services } from '../constants'
+import { AppAlert } from "@/components";
+import { Links, Services } from '@/constants';
+import { clientSubscribeValidationSchema } from "@/validators/client";
 import axios from 'axios';
+import { useFormik } from 'formik';
+import Link from 'next/link';
+import { useState } from 'react';
+import { Button, Footer, Input } from 'react-daisyui';
+import { FaChevronRight } from 'react-icons/fa6';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const AppFooter = () => {
 
     interface Subscribe {
         email: string;
     }
+    interface SubscribeResponse {
+        exists?: boolean;
+        subscribed?: boolean;
+        status?: "error" | "success";
+    }
 
     const initialValues: Subscribe = {
         email: ""
     }
 
+    const [data, setData] = useState<SubscribeResponse>()
+
     const onSubmit = async (values: Subscribe) => {
-        const response = await axios.post('/api/users/subscribe/', values)
-        console.log(response)
+        try {
+            const response = await axios.post('/api/users/subscribe/', values)
+            console.log(response)
+
+            setData({ ...response.data, status: "success" })
+        } catch {
+            setData({ status: "error" })
+        }
+
     }
 
-    const { handleChange, handleSubmit, errors: FormikError } = useFormik<Subscribe>({
+
+
+    const { handleChange, handleSubmit, errors: FormikError, isSubmitting } = useFormik<Subscribe>({
         initialValues,
         onSubmit,
+        validationSchema: clientSubscribeValidationSchema,
         validateOnChange: false
 
     })
@@ -104,12 +125,47 @@ const AppFooter = () => {
                                 type='submit'
                                 onClick={() => handleSubmit()}
                                 className=' btn-primary text-white rounded-md max-md:right-0 '
-
+                                loading={isSubmitting}
                             >
-                                Subscribe
+                                {isSubmitting ? "Subscribing" : "Subscribe"}
 
                             </Button>
                         </div>
+
+
+                    </div>
+                    <div className="flex mt-2">
+                        {!isSubmitting &&
+                            <>
+                                {data?.exists && <>
+                                    <AppAlert
+                                        mode="error"
+                                        className="bg-error"
+                                        icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
+                                    >
+                                        User already subscribed
+                                    </AppAlert>
+                                </>}
+                                {data?.subscribed && <>
+                                    <AppAlert
+                                        mode="success"
+                                        className="bg-success"
+                                        icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
+                                    >
+                                        Subscription successful
+                                    </AppAlert>
+                                </>}
+                                {data?.status === "error" && <>
+                                    <AppAlert
+                                        mode="error"
+                                        className="bg-error"
+                                        icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
+                                    >
+                                        No internet connection
+                                    </AppAlert>
+                                </>}
+                            </>
+                        }
 
                     </div>
                 </div>
