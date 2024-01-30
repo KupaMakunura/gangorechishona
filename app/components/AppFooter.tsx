@@ -74,7 +74,7 @@ const AppFooter = () => {
                     </div>
                     <div className='cursor-pointer'>
                         <span className='font-semibold'>
-                            Email:       <span className='font-thin'>rechishonagango@gmail.com</span>
+                            Email:       <span className='font-thin'>gangorechishona@gmail.com</span>
                         </span>
 
 

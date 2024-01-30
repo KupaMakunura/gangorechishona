@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Navbar } from "react-daisyui";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Link from "next/link";
-import { Links } from "../constants";
+import { Links } from "@/constants";
 
 const AppNavbar = () => {
 

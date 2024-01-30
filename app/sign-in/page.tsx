@@ -11,7 +11,7 @@ const SignIn = () => {
     return (
         <div className="flex w-full justify-center ">
             <div className="w-[30%] shadow flex-row px-8 mt-24 py-8 rounded-md space-y-3">
-                <span>{status}+{data?.user?.name}+ {data?.user?.email}</span>
+                <span>{data?.user?.name}</span>
                 <div className="flex justify-center">
                     <span className="logo-font text-3xl font-semibold ">Gango ReChishona</span>
                 </div>
@@ -57,7 +57,7 @@ const SignIn = () => {
                     Continue with  Google
 
                 </Button>
-                
+
             </div>
         </div>
     )

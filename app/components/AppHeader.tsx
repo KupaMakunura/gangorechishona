@@ -5,7 +5,7 @@ const AppHeader = () => {
   return (
     <section className="text-center mb-8 mt-12">
       <h1 className="text-4xl font-semibold text-gray-800 mb-4">
-        For All Your Language Learning Needs
+        For All Your Language  Needs
       </h1>
       <p className="text-gray-600 text-base">
         Explore interactive lessons, personalized learning, and track your progress.
