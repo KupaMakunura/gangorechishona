@@ -12,25 +12,22 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const AppFooter = () => {
 
-    interface Subscribe {
-        email: string;
-    }
+
     interface SubscribeResponse {
         exists?: boolean;
         subscribed?: boolean;
         status?: "error" | "success";
     }
 
-    const initialValues: Subscribe = {
+    const initialValues: { email: string } = {
         email: ""
     }
 
     const [data, setData] = useState<SubscribeResponse>()
 
-    const onSubmit = async (values: Subscribe) => {
+    const onSubmit = async (values: { email: string }) => {
         try {
             const response = await axios.post('/api/users/subscribe/', values)
-            console.log(response)
 
             setData({ ...response.data, status: "success" })
         } catch {
@@ -41,7 +38,7 @@ const AppFooter = () => {
 
 
 
-    const { handleChange, handleSubmit, errors: FormikError, isSubmitting } = useFormik<Subscribe>({
+    const { handleChange, handleSubmit, errors: FormikError, isSubmitting } = useFormik({
         initialValues,
         onSubmit,
         validationSchema: clientSubscribeValidationSchema,

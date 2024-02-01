@@ -3,13 +3,41 @@ export interface User {
   first_name: string;
   last_name: string;
   email: string;
-  code?: number;
-  password?: string;
-  password_2?: string;
-  gender: string;
+  code: number;
+  password: string;
   verified: boolean;
-  news_letter: boolean;
-  is_superuser: boolean;
+  readonly created_at: string;
+  readonly updated_at: string;
+}
+
+export interface SignUpForm
+  extends Omit<User, "code" | "verified" | "id" | "created_at" | "updated_at"> {
+  password_2: string;
+}
+
+export interface SignUpResponse {
+  valid?: boolean;
+  exists?: boolean;
+  created?: boolean;
+  status?: "error" | "success";
+}
+export interface SignInForm
+  extends Omit<
+    User,
+    | "code"
+    | "verified"
+    | "id"
+    | "created_at"
+    | "updated_at"
+    | "first_name"
+    | "last_name"
+  > {}
+export interface SignInResponse {
+  password?: boolean;
+  email?: boolean;
+  login?: boolean;
+  user?: User;
+  status?: "error" | "success";
 }
 
 export interface Course {
@@ -50,9 +78,9 @@ export interface NewsLetter {
   news: string;
 }
 
-export interface LoginProps {
-  email?: string;
-  password?: string;
+export interface SignInForm {
+  email: string;
+  password: string;
 }
 
 export interface BackendQueryParams {

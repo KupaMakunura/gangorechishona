@@ -1,7 +1,7 @@
 "use client";
 import { AppAlert } from '@/components';
-import { SignInForm, SignInResponse } from '@/constants/interfaces';
-import { clientSignInValidationSchema } from '@/validators/client';
+import { SignUpResponse, SignUpForm } from '@/constants/interfaces';
+import { clientSignUpValidationSchema } from '@/validators/client';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { signIn } from "next-auth/react";
@@ -11,69 +11,89 @@ import { useState } from 'react';
 import { Button, Input } from 'react-daisyui';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-const SignIn = () => {
+
+const SignUp = () => {
+
 
     const router = useRouter()
 
-
-    const [data, setData] = useState<SignInResponse>()
+    const [data, setData] = useState<SignUpResponse>()
 
     const initialValues = {
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
+        password_2: "",
     }
-    //handle google 0auth
+    //handle google auth
     const handleGoogle = () => {
         signIn("google")
     }
-    //handle custom sign In
-    const handleSignIn = async (values: SignInForm) => {
+    //handle custom sign up
+    const handleSignUp = async (values: SignUpForm) => {
         try {
-            const response = await axios.post('/api/users/sign-in/', values)
+            const response = await axios.post('/api/users/sign-up/', values)
 
-            const responseData: SignInResponse = response.data
+            const responseData: SignUpResponse = response.data
 
-            setData({ ...response.data, status: "success" })
+            setData({ ...responseData, status: "success" })
 
-            if (responseData.login === true) {
-
-                await signIn("credentials", {
-                    ...responseData.user, redirect: false,
-                })
-                router.push("/dashboard")
+            if (responseData.created === true) {
+                router.push('/dashboard')
             }
         } catch {
             setData({ status: "error" })
         }
-
-
     }
-    const { handleChange, handleSubmit, isSubmitting, errors: FormikError } = useFormik<SignInForm>({
+
+    //configure formik forms
+    const { handleChange, handleSubmit, isSubmitting, errors: FormikError } = useFormik<SignUpForm>({
         initialValues: initialValues,
         validateOnChange: false,
-        onSubmit: handleSignIn,
-        validationSchema: clientSignInValidationSchema
+        onSubmit: handleSignUp,
+        validationSchema: clientSignUpValidationSchema
     })
 
 
 
     return (
         <div className="flex w-full justify-center ">
-            <div className="md:w-[30%] max-md:w-full md:shadow flex-row px-8 md:mt-24 max-md:mt-12 py-8 rounded-md space-y-3">
+            <div className="md:w-[30%] max-md:w-full md:shadow flex-row px-8 md:mt-8 max-md:mt-12 py-8 rounded-md space-y-3">
 
                 <div className="flex justify-center">
                     <span className="logo-font text-3xl font-semibold ">Gango ReChishona</span>
                 </div>
 
                 <div className="flex justify-center">
-                    <span>Sign in to your account</span>
+                    <span>Create Account</span>
                 </div>
-                <div className="mt-5">
+                <div>
+                    <Input
+                        type="text"
+                        className="input input-bordered input-md form-control text-sm w-full focus:outline-none focus:border-primary  max-md:w-full"
+                        onChange={handleChange("first_name")}
+                        placeholder="First name"
+                    />
+                    <span className='text-xs ml-1 text-red-600 flex justify-start space-y-0'>{FormikError.first_name}</span>
+                </div>
+                <div>
+                    <Input
+                        type="text"
+                        className="input input-bordered input-md form-control text-sm w-full focus:outline-none focus:border-primary  max-md:w-full"
+                        onChange={handleChange("last_name")}
+                        placeholder="Last name"
+                    />
+                    <span className='text-xs ml-1 text-red-600 flex justify-start space-y-0'>{FormikError.last_name}</span>
+                </div>
+
+                <div>
                     <Input
                         type="email"
                         className="input input-bordered input-md form-control text-sm w-full focus:outline-none focus:border-primary  max-md:w-full"
                         onChange={handleChange("email")}
-                        placeholder="Email" />
+                        placeholder="Email"
+                    />
                     <span className='text-xs ml-1 text-red-600 flex justify-start space-y-0'>{FormikError.email}</span>
                 </div>
 
@@ -82,11 +102,20 @@ const SignIn = () => {
                         type="password"
                         className="input input-bordered input-md form-control text-sm w-full focus:outline-none focus:border-primary  max-md:w-full"
                         onChange={handleChange("password")}
-                        placeholder="Password" />
+                        placeholder="Password"
+                    />
                     <span className='text-xs ml-1 text-red-600 flex justify-start space-y-0'>{FormikError.password}</span>
                 </div>
 
-
+                <div>
+                    <Input
+                        type="password"
+                        className="input input-bordered input-md form-control text-sm w-full focus:outline-none focus:border-primary  max-md:w-full"
+                        onChange={handleChange("password_2")}
+                        placeholder="Confirm password"
+                    />
+                    <span className='text-xs ml-1 text-red-600 flex justify-start space-y-0'>{FormikError.password_2}</span>
+                </div>
 
                 <Button
                     type='submit'
@@ -94,27 +123,27 @@ const SignIn = () => {
                     className=' btn-primary text-white rounded-md w-full'
                     loading={isSubmitting}
                 >
-                    Sign in
+                    {isSubmitting ? "Creating Account" : "Create Account"}
 
                 </Button>
                 {!isSubmitting &&
                     <>
-                        {data?.email === false && <>
+                        {data?.exists === true && <>
                             <AppAlert
                                 mode="error"
                                 className="bg-error"
                                 icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
                             >
-                                Wrong email
+                                Email is being used by another account
                             </AppAlert>
                         </>}
-                        {data?.password === false && <>
+                        {data?.valid === false && <>
                             <AppAlert
                                 mode="error"
                                 className="bg-error"
                                 icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
                             >
-                                Wrong password
+                                Please check your information and try again
                             </AppAlert>
                         </>}
                         {data?.status === "error" && <>
@@ -154,4 +183,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default SignUp

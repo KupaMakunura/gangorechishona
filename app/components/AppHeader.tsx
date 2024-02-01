@@ -1,5 +1,5 @@
 // Header.js
-import React from 'react';
+import Link from 'next/link';
 
 const AppHeader = () => {
   return (
@@ -14,9 +14,9 @@ const AppHeader = () => {
         Enhance your skills with interpretation and translation features.
       </p>
       <div className="mt-6">
-        <a href="#" className="btn btn-primary text-white">
+        <Link href="/sign-up" className="btn btn-primary text-white">
           Get Started
-        </a>
+        </Link>
       </div>
     </section>
   );
