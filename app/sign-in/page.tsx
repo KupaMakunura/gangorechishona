@@ -2,9 +2,8 @@
 import { AppAlert } from '@/components';
 import { SignInForm, SignInResponse } from '@/constants/interfaces';
 import { clientSignInValidationSchema } from '@/validators/client';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import { signIn } from "next-auth/react";
+import { useFormik } from 'formik'
+import { signIn ,useSession} from "next-auth/react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -17,32 +16,40 @@ const SignIn = () => {
 
 
     const [data, setData] = useState<SignInResponse>()
+    const {update} = useSession()
 
     const initialValues = {
         email: "",
         password: "",
     }
-    //handle google 0auth
+
+
+    //handle Google Auth
     const handleGoogle = () => {
         signIn("google")
     }
     //handle custom sign In
-    const handleSignIn = async (values: SignInForm) => {
+    const handleCredentials = async (values: SignInForm) => {
         try {
-            const response = await axios.post('/api/users/sign-in/', values)
 
-            const responseData: SignInResponse = response.data
+            const signInResponse = await signIn("credentials", {
+                email: values.email,
+                password: values.password,
+                redirect: false
+            });
 
-            setData({ ...response.data, status: "success" })
-
-            if (responseData.login === true) {
-
-                await signIn("credentials", {
-                    ...responseData.user, redirect: false,
-                })
-                router.push("/dashboard")
+            if (signInResponse && !signInResponse.error) {
+                setData({ status: "success", login: true })
+                
+              
+                router.push('/dashboard')
+            } else {
+                setData({ status: "error", login: false})
             }
-        } catch {
+
+
+        } catch (error) {
+
             setData({ status: "error" })
         }
 
@@ -51,7 +58,7 @@ const SignIn = () => {
     const { handleChange, handleSubmit, isSubmitting, errors: FormikError } = useFormik<SignInForm>({
         initialValues: initialValues,
         validateOnChange: false,
-        onSubmit: handleSignIn,
+        onSubmit: handleCredentials,
         validationSchema: clientSignInValidationSchema
     })
 
@@ -99,25 +106,16 @@ const SignIn = () => {
                 </Button>
                 {!isSubmitting &&
                     <>
-                        {data?.email === false && <>
+                        {data?.login === false && <>
                             <AppAlert
                                 mode="error"
                                 className="bg-error"
                                 icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
                             >
-                                Wrong email
+                                Wrong email or password
                             </AppAlert>
                         </>}
-                        {data?.password === false && <>
-                            <AppAlert
-                                mode="error"
-                                className="bg-error"
-                                icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
-                            >
-                                Wrong password
-                            </AppAlert>
-                        </>}
-                        {data?.status === "error" && <>
+                        {data?.status === "error" && data?.network && <>
                             <AppAlert
                                 mode="error"
                                 className="bg-error"

@@ -1,15 +1,15 @@
 "use client";
-import classNames from "classnames";
-import { useState } from "react";
-import { Button, Navbar } from "react-daisyui";
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import Link from "next/link";
 import { Links } from "@/constants";
+import classNames from "classnames";
+import Link from "next/link";
+import { useState } from "react";
+import { Navbar } from "react-daisyui";
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 const AppNavbar = () => {
 
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState<boolean>(false)
     return (
         <>
             <Navbar className='grid grid-flow-col-dense gap-3 shadow-sm py-4 px-5 w-full  top-0'>

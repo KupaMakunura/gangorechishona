@@ -40,7 +40,21 @@ const SignUp = () => {
             setData({ ...responseData, status: "success" })
 
             if (responseData.created === true) {
-                router.push('/dashboard')
+
+                //handle the authorization and create a session
+
+                const signInResponse = await signIn("credentials", {
+                    email: values.email,
+                    password: values.password,
+                    redirect: false
+                });
+
+                if (signInResponse && !signInResponse.error) {
+                    router.push('/dashboard')
+                } else {
+                    setData({ status: "error", login: false })
+                }
+
             }
         } catch {
             setData({ status: "error" })
@@ -143,7 +157,7 @@ const SignUp = () => {
                                 className="bg-error"
                                 icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
                             >
-                                Please check your information and try again
+                                Please check your details and try again
                             </AppAlert>
                         </>}
                         {data?.status === "error" && <>
@@ -155,6 +169,17 @@ const SignUp = () => {
                                 No internet connection
                             </AppAlert>
                         </>}
+
+                        {data?.status === "error" && !data?.login && <>
+                            <AppAlert
+                                mode="error"
+                                className="bg-error"
+                                icon={<AiOutlineCloseCircle className='inline-block mr-2 text-lg' />}
+                            >
+                                Authentication failed please try again
+                            </AppAlert>
+                        </>}
+
                     </>
 
                 }

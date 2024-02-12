@@ -1,13 +1,14 @@
 "use client";
-import React from 'react'
 import { useSession } from 'next-auth/react';
 
 const Dashboard = () => {
-    const { data } = useSession()
+    const { data, status, update } = useSession()
+
+    
     return (
         <div>
 
-            {data?.user?.email}
+            {status}
 
         </div>
     )

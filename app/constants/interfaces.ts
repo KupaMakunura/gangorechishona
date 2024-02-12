@@ -18,6 +18,8 @@ export interface SignUpForm
 export interface SignUpResponse {
   valid?: boolean;
   exists?: boolean;
+  login?:boolean;
+  network?:boolean;
   created?: boolean;
   status?: "error" | "success";
 }
@@ -33,10 +35,8 @@ export interface SignInForm
     | "last_name"
   > {}
 export interface SignInResponse {
-  password?: boolean;
-  email?: boolean;
   login?: boolean;
-  user?: User;
+  network?: boolean;
   status?: "error" | "success";
 }
 
