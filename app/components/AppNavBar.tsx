@@ -2,6 +2,7 @@
 import { Links } from "@/constants";
 import classNames from "classnames";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Navbar } from "react-daisyui";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
@@ -10,6 +11,7 @@ const AppNavbar = () => {
 
 
     const [open, setOpen] = useState<boolean>(false)
+    const currentPathname = usePathname()
     return (
         <>
             <Navbar className='grid grid-flow-col-dense gap-3 shadow-sm py-4 px-5 w-full  top-0'>
@@ -20,7 +22,16 @@ const AppNavbar = () => {
 
                 <div className='flex items-center space-x-6  max-md:hidden max-md:flex-1'>
                     {Links.map((link, index) => (
-                        <Link className='hover:font-semibold font-normal ' href={link.href} key={index}>{link.title}</Link>
+                        <Link className={classNames({
+                            'hover:font-semibold font-normal pb-2': true,
+                            'font-semibold border-b-[1.5px] border-b-primary': link.href === currentPathname
+                        }
+                        )}
+                            href={link.href}
+                            key={index}
+                        >
+                            {link.title}
+                        </Link>
                     ))}
 
                 </div>
