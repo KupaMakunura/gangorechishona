@@ -13,18 +13,32 @@ const AppCourse = () => {
 
     const { data: courses, isLoading } = useSWR("/api/courses/", fetcher)
 
+    const oneCourse: Course[] = [{
+        created_at: "",
+        currency: "USD",
+        description: "Shona fundamentals",
+        duration: "3 weeks",
+        id: "4747474",
+        name: "Fundamentals of Shona",
+        price: 20,
+        picture: "/team-1.jpg",
+        updated_at: ""
+    }
+    ]
+
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8]
 
     return (
-        <>{
-            isLoading ?
-                <AppCourseSkeleton loaders={numbers} />
-                :
-                <AppCourseCard courses={courses ?? []} />
-        }
+        <div className="grid grid-cols-4 space-x mt-5">
+            {
+                isLoading ?
+                    <AppCourseSkeleton loaders={numbers} />
+                    :
+                    <AppCourseCard courses={oneCourse} />
+            }
 
 
-        </>
+        </div>
 
 
     )

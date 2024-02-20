@@ -1,7 +1,9 @@
+"use client";
+import { Course } from "@/constants/interfaces";
 import classNames from "classnames";
+import Link from "next/link";
 import React from "react";
-import { Button, Card } from "react-daisyui";
-import { Course } from "@/constants/interfaces"
+import { Card } from "react-daisyui";
 
 interface Props {
     courses: Course[],
@@ -10,6 +12,8 @@ interface Props {
 
 const AppCourseCard = ({ courses }: Props) => {
 
+
+   
 
 
     if (!Array.isArray(courses)) {
@@ -29,7 +33,7 @@ const AppCourseCard = ({ courses }: Props) => {
                     <React.Fragment key={index}>
 
                         <Card className={classNames({
-                            'h-fit md:w-[250px] max-md:w-full card shadow-lg rounded-xl pb-5': true,
+                            'h-fit md:w-[300px] max-md:w-full card shadow px-2 rounded-xl pb-5': true,
                         })}>
 
                             <Card.Image
@@ -43,20 +47,22 @@ const AppCourseCard = ({ courses }: Props) => {
                                 <Card.Title className={classNames({
                                     "truncate mt-2 w-full  text-sm  font-semibold": true,
                                 })}>{course.name}</Card.Title>
-                                <div className="flex w-full justify-end pt-2">
+                                <div className="flex w-full justify-end pt-2 mt-3">
                                     <div className="w-full  py-3 ">
-                                        <span className="font-bold justify-start  text-sm">{course.currency === 'USD' ? '$' : 'ZWL'}{course.price}</span>
+                                        <span className="font-bold justify-start  text-sm"> Price : {course.currency === 'USD' ? '$' : 'ZWL'}{" "}{course.price}</span>
                                     </div>
 
-                                    <Button
-                                        className="hover:bg-primary btn-outline border-primary hover:border-transparent
+                                    <Link
+                                        className="hover:bg-primary btn btn-primary text-white border-primary hover:border-transparent
                                              outline-primary
                                              hover:text-white"
-                                        // onClick={() => addToCart(course)}
-                                        size="md">Add to Cart
-                                    </Button>
+                                        href={`/courses/${course.id}`}
+                                    >
+                                        More info
+                                    </Link>
 
                                 </div>
+
 
                             </Card.Body>
                         </Card>
