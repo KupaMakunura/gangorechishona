@@ -27,11 +27,12 @@ const AppCourse = () => {
     ]
 
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+    const loader = true
 
     return (
-        <div className="grid grid-cols-4 space-x mt-5">
+        <div className="md:grid md:grid-cols-4 md:space-x-4 md:mt-5 max-md:flex-row max-md:space-y-3">
             {
-                isLoading ?
+                loader?
                     <AppCourseSkeleton loaders={numbers} />
                     :
                     <AppCourseCard courses={oneCourse} />

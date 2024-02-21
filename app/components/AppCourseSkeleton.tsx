@@ -12,7 +12,7 @@ const AppCourseSkeleton = ({ loaders }: Props) => {
         <>
             {loaders.map((_num, index) =>
 
-                <div key={index} className="h-fit max-md:w-full  md:w-[250px] rounded-xl pb-5">
+                <div key={index} className="h-fit gap-3 max-md:w-full  md:w-[250px] rounded-xl pb-5">
 
 
                     <Skeleton className="w-full h-[180px] rounded-md pb-5 skeleton" >
