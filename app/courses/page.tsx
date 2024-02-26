@@ -5,12 +5,12 @@ import AppNavbar from '@/components/AppNavBar';
 const Courses = () => {
 
     return (
-        <div className='container'>
+        <>
             <AppNavbar />
-            <div className='flex justify-center'>
+            <div className='mt-5 px-3 '>
                 <AppCourse />
             </div>
-        </div>
+        </>
 
     )
 }

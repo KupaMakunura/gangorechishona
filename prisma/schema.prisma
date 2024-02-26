@@ -32,6 +32,7 @@ model Course {
   updated_at  DateTime      @updatedAt
   Transaction Transaction[]
   Enrollment  Enrollment[]
+  Cart        Cart[]
 }
 
 model Transaction {
@@ -70,6 +71,14 @@ model NewsLetter {
 model NewsLetterSubscriber {
   id         String   @id @default(uuid())
   email      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Cart {
+  id         String   @id @default(uuid())
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

@@ -15,6 +15,10 @@ export interface SignUpForm
   password_2: string;
 }
 
+export interface CartForm {
+  courseId:string;
+}
+
 export interface SignUpResponse {
   valid?: boolean;
   exists?: boolean;

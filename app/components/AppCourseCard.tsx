@@ -33,7 +33,7 @@ const AppCourseCard = ({ courses }: Props) => {
                     <React.Fragment key={index}>
 
                         <Card className={classNames({
-                            'h-fit md:w-[300px] max-md:w-full card shadow px-2 rounded-xl pb-5': true,
+                            'h-fit md:w-[300px] max-md:w-full card shadow-sm px-2 rounded-xl pb-5': true,
                         })}>
 
                             <Card.Image

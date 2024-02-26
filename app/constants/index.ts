@@ -3,6 +3,11 @@ interface Link {
   href: string;
 }
 export const Links: Link[] = [
+
+  {
+    title: "Home",
+    href: "/",
+  },
   {
     title: "Courses",
     href: "/courses",

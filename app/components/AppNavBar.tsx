@@ -24,7 +24,7 @@ const AppNavbar = () => {
                     {Links.map((link, index) => (
                         <Link className={classNames({
                             'hover:font-semibold font-normal pb-2': true,
-                            'font-semibold border-b-[1.5px] border-b-primary': link.href === currentPathname
+                            'font-semibold border-b-[1.5px] border-b-primary': link.href === currentPathname 
                         }
                         )}
                             href={link.href}
