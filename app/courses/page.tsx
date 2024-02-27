@@ -7,7 +7,7 @@ const Courses = () => {
     return (
         <>
             <AppNavbar />
-            <div className='mt-5 px-3 '>
+            <div className='flex justify-center w-full mt-5'>
                 <AppCourse />
             </div>
         </>

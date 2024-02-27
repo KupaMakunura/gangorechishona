@@ -32,7 +32,7 @@ const AppCourse = () => {
     return (
         <div className="md:grid md:grid-cols-4 md:space-x-4 md:mt-5 max-md:flex-row max-md:space-y-3">
             {
-                loader?
+                isLoading?
                     <AppCourseSkeleton loaders={numbers} />
                     :
                     <AppCourseCard courses={oneCourse} />
