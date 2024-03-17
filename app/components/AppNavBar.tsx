@@ -51,7 +51,7 @@ const AppNavbar = () => {
 
 
                 <div className={classNames({
-                    'md:hidden w-[80%] bg-slate-50  shadow-xlg z-10 fixed top-0 -right-2 p-2 h-screen rounded-lg': true,
+                    'md:hidden w-[80%] bg-white  shadow-xl z-10 fixed top-0 -right-2 p-2 h-screen rounded-lg': true,
                     'max-md:block transition': open === true,
                     'max-md:hidden': open === false
                 })}>

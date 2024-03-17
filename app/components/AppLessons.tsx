@@ -10,7 +10,7 @@ const AppLessons = () => {
             <main className="container mx-auto mt-8">
                 <section className="text-center mb-8">
                     <h1 className="text-3xl font-semibold text-gray-800 mb-4">
-                        Lessons in Progress
+                        Lessons in progress
                     </h1>
                     <p className="text-gray-600 text-base">
                         Explore our language lessons in action. See how our interactive and engaging sessions make learning a breeze.

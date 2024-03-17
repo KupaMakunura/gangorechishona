@@ -15,8 +15,9 @@ const AppCourseCard = ({ courses }: Props) => {
 
   if (!Array.isArray(courses)) {
     return (
-      <div className="flex justify-center w-full ">
-        <>No courses available</>
+      <div className="flex-1 space-y-4 justify-center w-full ">
+        <p className="text-2xl">No courses available</p>
+        <button className="btn btn-primary text-white" onClick={()=>router.refresh()}>Refresh</button>
       </div>
     );
   }

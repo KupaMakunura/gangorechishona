@@ -2,8 +2,12 @@ interface Link {
   title: string;
   href: string;
 }
-export const Links: Link[] = [
 
+interface Service {
+  title: string;
+  href: string;
+}
+export const Links: Link[] = [
   {
     title: "Home",
     href: "/",
@@ -14,19 +18,31 @@ export const Links: Link[] = [
   },
   {
     title: "Services",
-    href: "/services",
+    href: "/#services",
   },
   {
     title: "Contact Us",
-    href: "/contact",
+    href: "/#contact-us",
   },
 ];
 
-export const Services = [
-  "Language Learning",
-  "Interpretation",
-  "Translation",
-  "Consultancy",
+export const Services: Service[] = [
+  {
+    title: "Language Learning",
+    href: "/#language-learning",
+  },
+  {
+    title: "Translation",
+    href: "/#translation",
+  },
+  {
+    title: "Interpretation",
+    href: "/#interpretation",
+  },
+  {
+    title: "Consultancy",
+    href: "/#consultancy",
+  },
 ];
 
 export const TeamList = [
@@ -77,4 +93,8 @@ export const PaymentMethods: PMethods[] = [
   },
 ];
 
-export const lessonImages = ["./lesson-1.jpg","./lesson-2.jpg","./lesson-3.jpg"];
+export const lessonImages = [
+  "./lesson-1.jpg",
+  "./lesson-2.jpg",
+  "./lesson-3.jpg",
+];

@@ -1,9 +1,8 @@
-import NextAuth from "next-auth";
-import { getSession } from "next-auth/react";
-import GoogleAuthProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "../../../../prisma/client";
 import { comparePassword } from "@/utils";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleAuthProvider from "next-auth/providers/google";
+import prisma from "../../../../prisma/client";
 
 const handler = NextAuth({
   providers: [
@@ -55,3 +54,4 @@ const handler = NextAuth({
   }
 });
 export { handler as GET, handler as POST };
+
