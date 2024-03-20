@@ -98,3 +98,14 @@ export const lessonImages = [
   "./lesson-2.jpg",
   "./lesson-3.jpg",
 ];
+
+interface UserLink {
+  title: string;
+  href: string;
+}
+
+export const UserLinks: UserLink[] = [
+  { title: "Classes", href: "classes" },
+  { title: "Payments", href: "payments" },
+  { title: "Settings", href: "settings" },
+];

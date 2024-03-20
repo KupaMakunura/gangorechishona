@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id         String   @id @default(uuid())
+  id         String   @id @default(uuid()) @map("_id") @db.ObjectId
   email      String   @unique
   password   String
   first_name String
@@ -16,32 +16,32 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Transaction Transaction[]
-  Enrollment  Enrollment[]
+  transactions Transaction[]
+  enrollments  Enrollment[]
 }
 
 model Course {
-  id          String        @id @default(uuid())
-  name        String
-  description String
-  price       Int
-  picture     String // Assuming you store the file path or URL as a string
-  duration    String
-  currency    String        @default("USD")
-  created_at  DateTime      @default(now())
-  updated_at  DateTime      @updatedAt
-  Transaction Transaction[]
-  Enrollment  Enrollment[]
-  Cart        Cart[]
+  id           String        @id @default(uuid()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  price        Int
+  picture      String // Assuming you store the file path or URL as a string
+  duration     String
+  currency     String        @default("USD")
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  transactions Transaction[]
+  enrollments  Enrollment[]
+  carts        Cart[]
 }
 
 model Transaction {
-  id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
-  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId   String
-  amount     Decimal
+  id         String   @id @default(uuid()) @map("_id") @db.String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @db.ObjectId
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   String   @db.ObjectId
+  amount     Float
   method     String
   currency   String   @default("USD")
   created_at DateTime @default(now())
@@ -49,18 +49,18 @@ model Transaction {
 }
 
 model Enrollment {
-  id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
-  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId   String
+  id         String   @id @default(uuid()) @map("_id") @db.String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @db.ObjectId
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   String   @db.ObjectId
   date       String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model NewsLetter {
-  id         String   @id @default(uuid())
+  id         String   @id @default(uuid()) @map("_id") @db.String
   title      String
   news       String
   email      String
@@ -69,16 +69,16 @@ model NewsLetter {
 }
 
 model NewsLetterSubscriber {
-  id         String   @id @default(uuid())
+  id         String   @id @default(uuid()) @map("_id") @db.String
   email      String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model Cart {
-  id         String   @id @default(uuid())
-  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId   String
+  id         String   @id @default(uuid()) @map("_id") @db.String
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   String   @db.ObjectId
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

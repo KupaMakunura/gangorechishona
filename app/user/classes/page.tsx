@@ -1,17 +1,17 @@
 "use client";
 import { useSession } from 'next-auth/react';
 
-const Dashboard = () => {
+const DashboardPage = () => {
     const { data, status, update } = useSession()
 
     
     return (
         <div>
 
-            {status}
+            {data?.user?.name}
 
         </div>
     )
 }
 
-export default Dashboard;
+export default DashboardPage;
